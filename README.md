@@ -1,4 +1,4 @@
-# Maturita-Arduino-
+# -Arduino-
 Tento soubor shrnuje základy na arduino pro maturitu
 
 # 🚀 Ultimátní tahák na Arduino - Maturita
