@@ -1,7 +1,7 @@
 # -Arduino-
 Tento soubor shrnuje základy na arduino pro maturitu
 
-# 🚀 Ultimátní tahák na Arduino - Maturita
+# 🚀 Ultimátní tahák na Arduino
 
 ## 1. Základní nastavení (Vstup / Výstup)
 Předtím, než začneš cokoliv číst nebo zapisovat, musíš Arduinu říct, co ten pin vlastně dělá. Dělá se to ve funkci `setup()`.
