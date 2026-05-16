@@ -74,3 +74,62 @@ Serial.println(pozice);
 Servo1.write(pozice);
 delay(15);
 }
+
+
+
+
+
+
+
+
+
+
+//alternativa jen na joystick sečtení surových hodnot z joysticku
+#include <Servo.h>
+
+Servo Servo1;
+byte pozice = 90;
+
+int Y = A1;
+int hodnotaY;
+int X = A0;
+int hodnotaX;
+// ZMĚNA: Tlačítko přesunuto na pin 2, aby nekolidovalo se servem na pinu 9
+int SW = 2; 
+int hodnotaSW;
+
+void setup() {
+  // pinMode(8, OUTPUT); // Pokud k pinu 8 nic nemáš, tohle není potřeba
+  pinMode(Y, INPUT);
+  pinMode(X, INPUT);
+  pinMode(SW, INPUT_PULLUP);
+
+  Servo1.attach(9);      // Servo je připojeno na pin 9
+  Servo1.write(pozice);  // Pošleme servo do výchozí pozice (90 stupňů)
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  hodnotaX = analogRead(X);
+  hodnotaY = analogRead(Y);
+  hodnotaSW = digitalRead(SW);
+
+  // ZMĚNA: Místo mapování použijeme hrubé hodnoty. Střed je cca 512.
+  // Pokud pohneme joystickem na jednu stranu (hodnota klesne pod 400)
+  if(hodnotaX < 400 && pozice > 0) {
+    pozice--;
+  }
+  
+  // Pokud pohneme joystickem na druhou stranu (hodnota stoupne nad 600)
+  if(hodnotaX > 600 && pozice < 180) {
+    pozice++;
+  }
+
+  // OPRAVA: Tento příkaz chyběl! Skutečně fyzicky pohne servem na novou pozici.
+  Servo1.write(pozice);
+
+  // OPRAVA: Krátká pauza, aby mělo servo čas na přejezd a pohyb byl plynulý.
+  // Změnou tohoto čísla (např. 10 až 30) můžeš zrychlovat nebo zpomalovat pohyb serva.
+  delay(15); 
+}
